@@ -49,16 +49,14 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-## Login Credentials : 
+## Login with Users created :
 
----
-| Username  | Password  |
--------------------------
-| admin | admin |
-| kawsar  | Sonali@123  |
-| tenant  | User@123  |
-| koushik | Owner@123 |
----
+| Username | Password  | Notes                  |
+|----------|-----------|------------------------|
+| admin    | admin  | Superuser |
+| kawsar    | Sonali@123   | Sample user |
+| tenant    | User@123   | Sample user |
+| koushik    | Owner@123   | Sample user |
 
 
 Visit `http://127.0.0.1:8000/` to browse properties, `/admin/` for the
