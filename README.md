@@ -58,7 +58,6 @@ python manage.py runserver
 | kawsar  | Sonali@123  |
 | tenant  | User@123  |
 | koushik | Owner@123 |
-| anonymous  | Tenant@123  |
 ---
 
 
