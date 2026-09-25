@@ -49,6 +49,18 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## Login Credentials : 
+
+---
+| Username  | Password  |
+-------------------------
+| admin | admin |
+| kawsar  | Sonali@123  |
+| tenant  | User@123  |
+| koushik | Owner@123 |
+---
+
+
 Visit `http://127.0.0.1:8000/` to browse properties, `/admin/` for the
 admin site, `/accounts/register/` to create an owner or tenant account.
 
