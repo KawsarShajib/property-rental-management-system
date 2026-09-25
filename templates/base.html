@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PropRental{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet"> 
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'properties:list' %}"><i class="fa-solid fa-house-chimney"></i> PropRental</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'properties:list' %}">Browse Properties</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.is_owner %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'properties:create' %}">Add Property</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'properties:mine' %}">My Properties</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'rentals:owner_requests' %}">Rental Requests</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'rentals:my_requests' %}">My Requests</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:profile' %}"><i class="fa-solid fa-user"></i> {{ user.username }}</a></li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-light btn-sm ms-2">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+
+{% comment %} <footer class="mt-5 py-4 bg-dark text-light text-center">
+    <div class="container">&copy; {% now "Y" %} PropRental &mdash; Property Rental &amp; Management System</div>
+</footer> {% endcomment %}
+
+<!-- Footer -->
+
+<footer class="mt-5 py-4 bg-dark text-light text-center">
+    <div class="container white-bdrt1 py-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="text-center text-lg-start">
+                    <p class="copyright-text mb-2 mb-md-0 text-white-light ff-heading">
+                        Property management refers to the administration, operation, and oversight of real estate properties on behalf of property owners. It involves various tasks such as marketing rental properties, finding tenants, collecting rent and ensuring legal compliance.</p>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="social-widget text-center text-md-end">
+                    <div class="social-style1">
+                        <a class="text-white me-2 fw500 fz17" href="">Follow us</a>
+                        <a href="#"><i
+                                class="fab fa-facebook-f list-inline-item"></i></a>
+                        <a href="#"><i
+                                class="fab fa-twitter list-inline-item"></i></a>
+                        <a href="#"><i
+                                class="fab fa-instagram list-inline-item"></i></a>
+                        <a href="#"><i
+                                class="fab fa-linkedin-in list-inline-item"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer> 
+
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script> {% endcomment %}
+</body>
+</html>
