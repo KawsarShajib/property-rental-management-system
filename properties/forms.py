@@ -1,6 +1,14 @@
 from django import forms
 from .models import Property
 
+# addition of image gallery for a property
+# ----------------------------------------
+from django.forms import inlineformset_factory
+from .models import Property, PropertyImage
+
+
+
+
 
 class PropertyForm(forms.ModelForm):
     class Meta:
@@ -47,3 +55,21 @@ class PropertySearchForm(forms.Form):
         if min_rent is not None and max_rent is not None and min_rent > max_rent:
             raise forms.ValidationError("Minimum rent cannot be greater than maximum rent.")
         return cleaned_data
+
+
+# addition of image gallery for a property
+# ----------------------------------------
+# Lets an owner upload several gallery photos alongside the property form.
+# extra=3 shows 3 empty upload slots; can_delete=True lets them remove an
+# existing gallery photo by ticking its "Remove this image" box.
+PropertyImageFormSet = inlineformset_factory(
+    Property,
+    PropertyImage,
+    fields=['image', 'caption'],
+    extra=3,
+    can_delete=True,
+    widgets={
+        'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        'caption': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Optional caption'}),
+    },
+)

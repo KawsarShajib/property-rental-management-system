@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}PropRental{% endblock %}</title>
+    <title>{% block title %}ঘরবাড়ি (GhorBari){% endblock %}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet"> 
@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'properties:list' %}"><i class="fa-solid fa-house-chimney"></i> PropRental</a>
+        <a class="navbar-brand fw-bold" href="{% url 'properties:list' %}"><i class="fa-solid fa-house-chimney"></i> ঘরবাড়ি (GhorBari) </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -62,7 +62,7 @@
 </div>
 
 {% comment %} <footer class="mt-5 py-4 bg-dark text-light text-center">
-    <div class="container">&copy; {% now "Y" %} PropRental &mdash; Property Rental &amp; Management System</div>
+    <div class="container">&copy; {% now "Y" %} ঘরবাড়ি (GhorBari) &mdash; Property Rental &amp; Management System</div>
 </footer> {% endcomment %}
 
 <!-- Footer -->

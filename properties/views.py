@@ -8,6 +8,12 @@ from .models import Property
 from rentals.forms import RentalRequestForm, ReviewForm
 from rentals.models import RentalRequest, Review
 
+# addition of image gallery for a property
+# ----------------------------------------
+from .forms import PropertyForm, PropertyImageFormSet
+from .models import Property, PropertyImage
+
+
 
 def property_list(request):
     properties = Property.objects.filter(is_available=True).select_related('owner')
@@ -86,11 +92,21 @@ def property_create(request):
             property_obj = form.save(commit=False)
             property_obj.owner = request.user
             property_obj.save()
+
+            # addition of image gallery for a property
+            formset = PropertyImageFormSet(request.POST, request.FILES, instance=property_obj)
+            if formset.is_valid():
+                formset.save()
+
             messages.success(request, "Property listed successfully.")
             return redirect('properties:detail', pk=property_obj.pk)
+        # addition of image gallery for a property
+        formset = PropertyImageFormSet(request.POST, request.FILES)
     else:
         form = PropertyForm()
-    return render(request, 'properties/property_form.html', {'form': form, 'action': 'Add'})
+        # addition of image gallery for a property
+        formset = PropertyImageFormSet()
+    return render(request, 'properties/property_form.html', {'form': form, 'formset': formset, 'action': 'Add'})
 
 
 @login_required
@@ -102,13 +118,19 @@ def property_update(request, pk):
 
     if request.method == 'POST':
         form = PropertyForm(request.POST, request.FILES, instance=property_obj)
-        if form.is_valid():
+        # addition of image gallery for a property
+        formset = PropertyImageFormSet(request.POST, request.FILES, instance=property_obj)
+
+        if form.is_valid() and formset.is_valid():
             form.save()
+            formset.save()
             messages.success(request, "Property updated successfully.")
             return redirect('properties:detail', pk=property_obj.pk)
     else:
         form = PropertyForm(instance=property_obj)
-    return render(request, 'properties/property_form.html', {'form': form, 'action': 'Edit'})
+        # addition of image gallery for a property
+        formset = PropertyImageFormSet(instance=property_obj)
+    return render(request, 'properties/property_form.html', {'form': form, 'formset': formset, 'action': 'Edit'})
 
 
 @login_required
@@ -125,6 +147,23 @@ def property_delete(request, pk):
     return render(request, 'properties/property_confirm_delete.html', {'property': property_obj})
 
 
+# addition of image gallery for a property
+@login_required
+def delete_property_image(request, pk):
+    """Quick single-image removal straight from the property detail page,
+    without going through the full edit form."""
+    image = get_object_or_404(PropertyImage, pk=pk)
+    if image.property.owner_id != request.user.id:
+        messages.error(request, "You may only manage images on your own properties.")
+        return redirect('properties:detail', pk=image.property_id)
+
+    property_pk = image.property_id
+    if request.method == 'POST':
+        image.delete()
+        messages.success(request, "Image removed.")
+    return redirect('properties:detail', pk=property_pk)
+
+
 @login_required
 def my_properties(request):
     if not request.user.is_owner:
@@ -132,3 +171,7 @@ def my_properties(request):
         return redirect('properties:list')
     properties = Property.objects.filter(owner=request.user)
     return render(request, 'properties/my_properties.html', {'properties': properties})
+
+
+
+

@@ -20,6 +20,8 @@ class RoleBasedAccessMiddleware:
         '/properties/create/',
         '/properties/edit/',
         '/properties/delete/',
+        # addition of image gallery for a property
+        '/properties/image/delete/',
         '/rentals/owner/',
     )
 

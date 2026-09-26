@@ -140,33 +140,12 @@ LOGOUT_REDIRECT_URL = 'properties:list'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-# MAILERS = {
-#     'default': {
-#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-#     },
-# }
-
-
-
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-#
 # rental request notifications (new request / accepted / rejected /
 # cancelled) are sent through this "default" mailer — see rentals/emails.py.
 # Default backend below just prints emails to the runserver console, so
 # there's nothing to configure to see the feature working.
-# DEFAULT_FROM_EMAIL = 'PropRental <no-reply@proprental.local>'
+
 DEFAULT_FROM_EMAIL = 'PropRental <kawsar117@gmail.com>'
- 
-# MAILERS = {
-#     'default': {
-#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-#     },
-# }
- 
-# To send real emails in production, replace the BACKEND above with SMTP
-# (Gmail, SendGrid, Mailgun...). Never hardcode real credentials here —
-# read them from environment variables:
 
 MAILERS = {
     'default': {
