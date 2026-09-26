@@ -28,7 +28,7 @@ def property_list(request):
         if max_rent is not None:
             properties = properties.filter(monthly_rent__lte=max_rent)
 
-    paginator = Paginator(properties, 9)
+    paginator = Paginator(properties, 6)
     page_obj = paginator.get_page(request.GET.get('page'))
 
     return render(request, 'properties/property_list.html', {

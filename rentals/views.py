@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import RentalRequestForm, ReviewForm
 from .models import RentalRequest, Review
+from .emails import send_new_request_email, send_request_status_email, send_request_cancelled_email
 from properties.models import Property
 
 
@@ -37,6 +38,7 @@ def send_request(request, property_id):
             rental_request.property = property_obj
             rental_request.tenant = request.user
             rental_request.save()
+            send_new_request_email(rental_request)
             messages.success(request, "Your rental request has been sent.")
             return redirect('rentals:my_requests')
     else:
@@ -69,6 +71,7 @@ def cancel_request(request, pk):
     if request.method == 'POST':
         rental_request.status = RentalRequest.Status.CANCELLED
         rental_request.save()
+        send_request_cancelled_email(rental_request)
         messages.success(request, "Request cancelled.")
         return redirect('rentals:my_requests')
 
@@ -100,6 +103,7 @@ def accept_request(request, pk):
 
     rental_request.status = RentalRequest.Status.ACCEPTED
     rental_request.save()
+    send_request_status_email(rental_request)
     messages.success(request, f"Request from {rental_request.tenant.username} accepted.")
     return redirect('rentals:owner_requests')
 
@@ -118,6 +122,7 @@ def reject_request(request, pk):
 
     rental_request.status = RentalRequest.Status.REJECTED
     rental_request.save()
+    send_request_status_email(rental_request)
     messages.success(request, f"Request from {rental_request.tenant.username} rejected.")
     return redirect('rentals:owner_requests')
 
