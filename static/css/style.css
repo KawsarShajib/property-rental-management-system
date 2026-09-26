@@ -82,14 +82,19 @@ form textarea {
 }
 
 
-/* Green table header with white text */
-.dashboard-table thead th {
-    background-color: #198754 !important;
-    color: #ffffff !important;
-    font-weight: 600;
+.footer-info p {
+    line-height: 1.6;
 }
 
-/* Green text for table rows */
-.dashboard-table tbody td {
-    color: #198754 !important;
+.footer-info i {
+    width: 20px;
+}
+
+footer a {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+footer a:hover {
+    opacity: 0.75;
 }
