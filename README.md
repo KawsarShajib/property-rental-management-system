@@ -64,3 +64,93 @@ Visit :
 `/admin/` for the admin site, 
 `/accounts/register/` to create an owner or tenant account.
 
+###  Pagination
+- Add pagination to home page and "Popular Posts" page
+- Add pagination to search results page
+
+
+## Project Structure
+
+```
+property_management_project/
+├── accounts/  # custom User model, auth, dashboards
+│   ├── migrations/
+│   │   ├── 0001_initial.py
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── middleware.py  # role-based access control
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── media/  # uploaded property & profile images
+│   ├── profile_pics/
+│   ├── property_gallery/
+│   └── property_images/
+├── properties/  # Property + PropertyImage models, CRUD, gallery
+│   ├── migrations/
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_propertyimage.py
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── property_management/  # project settings & root URLs
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py  # installed apps, MAILERS, templates, media
+│   ├── urls.py
+│   └── wsgi.py
+├── rentals/  # RentalRequest & Review models, email notifications
+│   ├── migrations/
+│   │   ├── 0001_initial.py
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── emails.py  # rental request email notifications
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+├── static/  # custom CSS
+│   └── css/
+│       └── style.css
+├── templates/  # all HTML templates (Bootstrap 5)
+│   ├── accounts/
+│   │   ├── login.html
+│   │   ├── owner_dashboard.html
+│   │   ├── profile.html
+│   │   ├── register.html
+│   │   └── tenant_dashboard.html
+│   ├── properties/
+│   │   ├── my_properties.html
+│   │   ├── property_confirm_delete.html
+│   │   ├── property_detail.html
+│   │   ├── property_form.html
+│   │   └── property_list.html
+│   ├── rentals/
+│   │   ├── my_requests.html
+│   │   ├── owner_requests.html
+│   │   ├── request_confirm_cancel.html
+│   │   └── request_form.html
+│   └── base.html
+│
+├── screenshots
+│
+│
+├── .gitignore
+├── README.md  # setup + feature notes
+├── manage.py  # Django's command-line entry point
+└── requirements.txt  # Django, Pillow
+
+```
