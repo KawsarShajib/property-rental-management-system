@@ -1,4 +1,4 @@
-# PropRental — Property Rental & Management System
+# GhorBari — Property Rental & Management System
 
 A Django-based property rental platform. Property owners list properties;
 tenants search, request to rent, and leave reviews once accepted.
@@ -36,7 +36,7 @@ static/css/style.css     # custom styling
 media/                   # uploaded images (property photos, profile pics)
 ```
 
-## Setup
+## Quick Setup
 
 ```bash
 python3 -m venv venv
@@ -59,20 +59,8 @@ python manage.py runserver
 | koushik    | Owner@123   | Sample user |
 | anonymous  | Tenant@123  | Sample user |
 
-Visit `http://127.0.0.1:8000/` to browse properties, `/admin/` for the
-admin site, `/accounts/register/` to create an owner or tenant account.
+Visit :
+`http://127.0.0.1:8000/` to browse properties, 
+`/admin/` for the admin site, 
+`/accounts/register/` to create an owner or tenant account.
 
-## Notes on design choices
-
-- **Custom User model** (`accounts.User`) extends `AbstractUser` with a
-  `role` field rather than using Groups/Permissions, since the two roles
-  (Owner/Tenant) map directly onto distinct dashboards and workflows.
-- **Two layers of authorization**: view-level checks (e.g. "only the
-  property's owner may edit it") plus a request-level middleware that
-  blocks whole URL prefixes by role — demonstrating Django middleware
-  alongside standard permission checks.
-- **RentalRequest.status** uses `PENDING / ACCEPTED / REJECTED / CANCELLED`
-  so cancelled requests are kept for history rather than deleted.
-- SQLite is used by default for simplicity; swap `DATABASES` in
-  `property_management/settings.py` for Postgres/MySQL in production, and
-  set a real `SECRET_KEY` via an environment variable before deploying.
