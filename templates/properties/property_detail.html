@@ -154,35 +154,4 @@
 {% endfor %}
 
 
-<!-- 
-JavaScript for whenever an user selects the gallery photos, it will display on the main/cover photo area.
-How it behaves:
-Clicking any gallery thumbnail swaps the big cover-photo area to that image, and highlights the selected thumbnail with a blue border.
-If a property has no cover photo at all but does have gallery photos, the first gallery photo is used as the initial main image (and is pre-highlighted), instead of showing the empty placeholder.
-No page reload, no other views/URLs/models touched — purely client-side, scoped to this one template.
-
-
-<script>
-    function setMainPropertyImage(thumbEl) {
-        var wrapper = document.getElementById('mainImageWrapper');
-        var mainImg = document.getElementById('mainPropertyImage');
-        var fullUrl = thumbEl.getAttribute('src');
-
-        if (mainImg) {
-            mainImg.src = fullUrl;
-        } else {
-            wrapper.innerHTML =
-                '<img id="mainPropertyImage" src="' + fullUrl + '" ' +
-                'class="img-fluid rounded shadow-sm mb-3" ' +
-                'style="max-height:420px; width:100%; object-fit:cover;">';
-        }
-
-        document.querySelectorAll('.gallery-thumb').forEach(function (el) {
-            el.classList.remove('border', 'border-primary', 'border-3');
-        });
-        thumbEl.classList.add('border', 'border-primary', 'border-3');
-    }
-</script>
--->
-
 {% endblock %}
